@@ -3,8 +3,35 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tennis game</title>
+	<style>
+		canvas {
+
+			margin: 80px 50px;
+			-webkit-border-radius: 20px;
+			border-radius: 20px;
+			-webkit-box-shadow: rgba(0,0,0, 0.4) 5px 5px 5px;
+			box-shadow: rgba(0,0,0, 0.4) 5px 5px 5px;
+		} 
+	</style>
 </head>
 <body>
-	
+	<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+	<script>
+		let canvas;
+		let canvasContext;
+
+		window.onload = function() {
+			canvas = document.getElementById('gameCanvas');
+			canvasContext = canvas.getContext('2d');
+			canvasContext.fillStyle = 'black';
+			canvasContext.fillRect(0,0, canvas.width, canvas.height);
+			canvasContext.fillStyle = 'green';
+			canvasContext.fillRect(100,200, 20, 30);
+			canvas.addEventListener('mousewheel', function(e) {
+				console.log(e);
+			});
+		}
+	</script>
 </body>
 </html>
