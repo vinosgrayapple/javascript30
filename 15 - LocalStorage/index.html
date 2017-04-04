@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>LocalStorage</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -51,19 +52,33 @@ function populateList(plates = [], platesList){
       <li>
       <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? "checked":""}/>
         <label for="item${i}">${plate.text}</label>
+        <i class="fa fa-times" aria-hidden="true" data-index=${i}></i>
       </li>
     `;
   }).join('');
 }
   function toggleDone(e) {
-    if(!e.target.matches('input')) return;
-
-    console.log(e.target);
+    if (!e.target.matches('input')) return;
+      const index = e.target.dataset.index;
+      items[index].done = !items[index].done;
+      localStorage.setItem("items", JSON.stringify(items));
+      populateList(items, itemsList);
     
+  }
+  function itemRemove (e) 
+  {
+    console.log(e.target.matches('.fa-times'));
+     if (!e.target.matches('.fa-times')) return;
+     const index = e.target.dataset.index;
+     items.splice(index,1);
+     localStorage.setItem("items", JSON.stringify(items));
+     populateList(items, itemsList);
   }
   populateList(items, itemsList);
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleDone);
+  itemsList.addEventListener('click', itemRemove);
+
   
 
 
